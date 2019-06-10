@@ -42,7 +42,7 @@ public class Merchants {
      * 商户营业执照
      */
     @Basic
-    @Column(name = "business_licence_url", nullable = false)
+    @Column(name = "business_license_url", nullable = false)
     private String businessLicenseUrl;
     /**
      * 商户联系电话

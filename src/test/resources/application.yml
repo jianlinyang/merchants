@@ -2,7 +2,7 @@ spring:
   application:
     name: Merchants
   datasource:
-    url: jdbc:mysql://106.14.183.86:3306/passbook
+    url: jdbc:mysql://106.14.183.86:3306/passbook?autoReconnet=true
     username: root
     password: 123456
 #  kafka:

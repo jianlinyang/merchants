@@ -7,7 +7,7 @@ package com.shu.merchants.security;
  * @date 2019/6/10 13:53
  */
 public class AccessContext {
-    private static final ThreadLocal<String> token = new ThreadLocal<>();
+    private static final ThreadLocal<String> token = new ThreadLocal<String>();
 
     public static String getToken() {
         return token.get();

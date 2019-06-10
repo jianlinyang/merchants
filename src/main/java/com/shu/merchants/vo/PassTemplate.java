@@ -63,7 +63,7 @@ public class PassTemplate {
      * @return {@link ErrorCode}
      */
     public ErrorCode validate(MerchantsDao merchantsDao){
-        if(null==merchantsDao.findByid(id)){
+        if(null==merchantsDao.findById(id)){
             return ErrorCode.MERCHANTS_NOT_EXIST;
         }
         return ErrorCode.SUCCESS;

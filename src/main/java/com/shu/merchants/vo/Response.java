@@ -3,7 +3,6 @@ package com.shu.merchants.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.kafka.common.protocol.types.Field;
 
 /**
  * <h1>通用响应对象</h1>
@@ -12,8 +11,8 @@ import org.apache.kafka.common.protocol.types.Field;
  * @date 2019/6/10 14:58
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Response {
     /**
      * 错误码,正确返回0
@@ -31,9 +30,12 @@ public class Response {
     /**
      * <h2>正确的响应构造函数</h2>
      *
-     * @param o 返回对象
+     * @param data 返回对象
      */
-    public Response(Object o) {
-        this.data = o;
+    public Response(Object data) {
+        this.data = data;
     }
+
+//    public Response() {
+//    }
 }
