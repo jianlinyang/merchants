@@ -20,10 +20,16 @@ public enum ErrorCode {
     private Integer code;
     private String desc;
 
+    /**
+     * 错误码
+     */
     public Integer getCode() {
         return code;
     }
 
+    /**
+     * 描述
+     */
     public String getDesc() {
         return desc;
     }
