@@ -1,15 +1,18 @@
 package com.shu.merchants.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.shu.merchants.constant.Constants;
 import com.shu.merchants.constant.ErrorCode;
 import com.shu.merchants.dao.MerchantsDao;
 import com.shu.merchants.entity.Merchants;
-import com.shu.merchants.service.ImerchantsService;
+import com.shu.merchants.service.IMerchantsService;
 import com.shu.merchants.vo.CreateMerchantsRequest;
 import com.shu.merchants.vo.CreateMerchantsResponse;
 import com.shu.merchants.vo.PassTemplate;
 import com.shu.merchants.vo.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +24,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @Service
-public class MerchantsServiceImpl implements ImerchantsService {
+public class MerchantsServiceImpl implements IMerchantsService {
     private final MerchantsDao merchantsDao;
 
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
     @Autowired
-    public MerchantsServiceImpl(MerchantsDao merchantsDao) {
+    public MerchantsServiceImpl(MerchantsDao merchantsDao, KafkaTemplate<String, String> kafkaTemplate) {
         this.merchantsDao = merchantsDao;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
@@ -60,6 +66,15 @@ public class MerchantsServiceImpl implements ImerchantsService {
 
     @Override
     public Response dropPassTemplate(PassTemplate passTemplate) {
-        return null;
+        Response response = new Response();
+        ErrorCode errorCode = passTemplate.validate(merchantsDao);
+        response.setErrorCode(errorCode.getCode());
+        response.setErrorMsg(errorCode.getDesc());
+        if (errorCode == ErrorCode.SUCCESS) {
+            String s = JSON.toJSONString(passTemplate);
+            kafkaTemplate.send(Constants.TEMPLATE_TOPIC, Constants.TEMPLATE_TOPIC, s);
+            log.info("DropPassTemplate:{}", s);
+        }
+        return response;
     }
 }

@@ -5,12 +5,12 @@ spring:
     url: jdbc:mysql://106.14.183.86:3306/passbook
     username: root
     password: 123456
-#  kafka:
-#    bootstrap-servers: 106.14.183.86:9092
-#    consumer:
-#      group-id: passbook
-#    listener:
-#      concurrency: 4
+  kafka:
+    bootstrap-servers: 106.14.183.86:9092
+    consumer:
+      group-id: passbook
+    listener:
+      concurrency: 4
 server:
   port: 9527
 logging:

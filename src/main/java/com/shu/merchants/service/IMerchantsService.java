@@ -10,7 +10,7 @@ import com.shu.merchants.vo.Response;
  * @author yang
  * @date 2019/6/10 15:21
  */
-public interface ImerchantsService {
+public interface IMerchantsService {
     /**
      * <h2>创建商户服务</h2>
      *
